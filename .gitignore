@@ -15,3 +15,4 @@ Gemfile.lock
 bin
 .kitchen.local.yml
 .coverage
+coverage/
