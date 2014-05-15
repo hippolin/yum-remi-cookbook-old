@@ -16,11 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "yum-epel::default"
+include_recipe 'yum-epel::default'
 
-%w{
-  remi
-  }.each do |repo|
+%w(remi).each do |repo|
 
   if node['yum'][repo]['managed']
     yum_repository repo do
