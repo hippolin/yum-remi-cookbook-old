@@ -2,6 +2,9 @@ require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'foodcritic'
 require 'kitchen'
+require 'dotenv'
+
+Dotenv.load
 
 # Style tests. Rubocop and Foodcritic
 namespace :style do

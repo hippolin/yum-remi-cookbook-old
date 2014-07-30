@@ -3,4 +3,5 @@ require 'chefspec'
 require 'chefspec/berkshelf'
 
 CodeClimate::TestReporter.start
-at_exit { ChefSpec::Coverage.report! }
+
+at_exit {  ChefSpec::Coverage.report! }

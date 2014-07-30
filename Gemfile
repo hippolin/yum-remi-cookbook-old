@@ -36,4 +36,5 @@ group :development do
   gem 'rake'
 end
 
-gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'codeclimate-test-reporter', group: :test, require: nil
+gem 'dotenv-rails', :groups => [:development, :test]

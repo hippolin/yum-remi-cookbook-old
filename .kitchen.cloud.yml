@@ -1,27 +1,27 @@
 ---
-driver_config:
+driver:
+  name: ec2
   aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
   aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
-
+  require_chef_omnibus: true
+  flavor_id: t1.micro
+  region: us-east-1
+  username: ec2-user
+  ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+  security_group_ids: ci_test
 
 provisioner:
-  name: chef_zero
+  name: chef_solo
   require_chef_omnibus: latest
 
 platforms:
-- name: amzn-ami-pv-2014.03.1.x86_64-ebs
-  driver_plugin: ec2
-  driver_config:
-    require_chef_omnibus: true
-    flavor_id: m1.small
-    region: us-east-1
+- name: amzn
+  driver:
     image_id: ami-fb8e9292
-    username: ec2-user
-    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
 
 suites:
 - name: default
   run_list:
-  - recipe[yum-epel::default]
+  - recipe[yum-remi::default]
   attributes: {}
