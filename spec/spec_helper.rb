@@ -1,7 +1,5 @@
-require 'codeclimate-test-reporter'
 require 'chefspec'
 require 'chefspec/berkshelf'
-
-CodeClimate::TestReporter.start
+require 'rspec/expectations'
 
 at_exit {  ChefSpec::Coverage.report! }

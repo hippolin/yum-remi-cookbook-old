@@ -9,7 +9,9 @@ Dotenv.load
 # Style tests. Rubocop and Foodcritic
 namespace :style do
   desc 'Run Ruby style checks'
-  Rubocop::RakeTask.new(:ruby)
+  RuboCop::RakeTask.new(:ruby) do |task|
+    task.patterns = ['**/*.rb']
+  end
 
   desc 'Run Chef style checks'
   FoodCritic::Rake::LintTask.new(:chef) do |t|
@@ -28,7 +30,14 @@ task :style => ['style:chef', 'style:ruby']
 
 # Rspec and ChefSpec
 desc 'Run ChefSpec examples'
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = [].tap do |a|
+    a.push('--color')
+    a.push('--format progress')
+  end.join(' ')
+
+  t.pattern = './spec/**/*_spec.rb'
+end
 
 # Integration tests. Kitchen.ci
 namespace :integration do
@@ -59,7 +68,7 @@ namespace :integration do
 end
 
 desc 'Run all tests on Travis'
-task :travis => ['style', 'spec', 'integration:cloud']
+task :travis => ['style', 'spec']
 
 # Default
 task :default => ['style', 'spec', 'integration:vagrant']
